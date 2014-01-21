@@ -127,5 +127,38 @@ describe('Stats', function() {
       assert.equal(stats.sortedIndexOf(10), -1);
     });
 
+    it('mean - calculate the mean', function() {
+      stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
+
+      assert.equal(stats.mean().toFixed(4), 2.9167);
+    });
+
+    it('median - median value of an odd number of elements', function() {
+      stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8]);
+      assert.equal(stats.median(), 1);
+    });
+
+    it('median - median value of an even number of elements', function() {
+      stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
+      assert.equal(stats.median(), 1.5);
+    });
+
+    it('variance - caluclate the squared deviation from the mean', function() {
+      stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
+      assert.equal(stats.variance().toFixed(4), 9.4097);
+    });
+
+    it('sampleVariance - caluclate the sample variance', function() {
+      stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
+      assert.equal(stats.sampleVariance().toFixed(4), 10.2652);
+    });
+
+    it('stddev - caluclate the standard deviation', function() {
+      stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
+      assert.equal(stats.stddev().toFixed(4), 3.0675);
+    });
+
+
+
   });
 });
