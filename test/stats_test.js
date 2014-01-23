@@ -117,6 +117,20 @@ describe('Stats', function() {
       assert.equal(stats.pmf(5), 0);
     });
 
+    it('pmf of several values - sum the values of the pmf', function() {
+      stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
+
+      // allow for floating point precision errors.
+      assert.equal(stats.pmf(1, 0, 5).toFixed(4), (5/12).toFixed(4));
+    });
+
+    it('pmf of an array of values - sum the values of the pmf', function() {
+      stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
+
+      // allow for floating point precision errors.
+      assert.equal(stats.pmf([1, 0, 5]).toFixed(4), (5/12).toFixed(4));
+    });
+
     it('sortedIndexOf - find the first index of an item', function() {
       stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
 
@@ -130,7 +144,7 @@ describe('Stats', function() {
     it('mean - calculate the mean', function() {
       stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
 
-      assert.equal(stats.mean().toFixed(4), 2.9167);
+      assert.equal(stats.amean().toFixed(4), 2.9167);
     });
 
     it('median - median value of an odd number of elements', function() {

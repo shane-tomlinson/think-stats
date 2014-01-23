@@ -5,7 +5,8 @@
 const path = require('path');
 const fs = require('fs');
 const Promise = require('bluebird');
-const Stats = require('fast-stats').Stats;
+const Stats = require('./lib/stats');
+const range = require('./lib/range');
 
 const PREGNANCY_DATA_PATH = path.join(__dirname, 'data', '2002FemPreg.dat');
 const PREGNANCY_RESP_PATH = path.join(__dirname, 'data', '2002FemResp.dat');
@@ -47,6 +48,7 @@ parseFile(PREGNANCY_DATA_PATH, PregnancySchema)
 
     var firstChildDurations = new Stats();
     var otherChildDurations = new Stats();
+    var totalChildDurations = new Stats();
 
     var firstChildLive = liveBirths.filter(function(pregnancy) {
       return pregnancy.birthord === 1;
@@ -58,10 +60,12 @@ parseFile(PREGNANCY_DATA_PATH, PregnancySchema)
 
     firstChildLive.forEach(function(pregnancy) {
       firstChildDurations.push(pregnancy.prglength);
+      totalChildDurations.push(pregnancy.prglength);
     });
 
     otherChildLive.forEach(function(pregnancy) {
       otherChildDurations.push(pregnancy.prglength);
+      totalChildDurations.push(pregnancy.prglength);
     });
 
     var firstChildTotalWeeks = firstChildLive.reduce(function(total, pregnancy) {
@@ -85,6 +89,24 @@ parseFile(PREGNANCY_DATA_PATH, PregnancySchema)
     console.log("amean pregnancy time for first live child: %s", firstChildDurations.amean());
     console.log("amean pregnancy time for second+ live child: %s", otherChildDurations.amean());
     console.log("Difference in hours: %s", Math.abs(firstChildTime - otherChildTime) * 7 * 24);
+    console.log("Probability first child is early: %s", firstChildDurations.pmf(range(0, 37)));
+    console.log("Probability first child is on time: %s", firstChildDurations.pmf(range(38, 40)));
+    console.log("Probability first child is late: %s", firstChildDurations.pmf(range(41, 50)));
+    console.log("Probability of week 36: %s", firstChildDurations.pmf(36));
+    console.log("Probability of week 37: %s", firstChildDurations.pmf(37));
+    console.log("Probability of week 38: %s", firstChildDurations.pmf(38));
+    console.log("Probability of week 39: %s", firstChildDurations.pmf(39));
+    console.log("Probability of week 40: %s", firstChildDurations.pmf(40));
+    console.log("Probability of week 41: %s", firstChildDurations.pmf(41));
+    console.log("Probability other child is early: %s", otherChildDurations.pmf(range(0, 37)));
+    console.log("Probability other child is on time: %s", otherChildDurations.pmf(range(38, 40)));
+    console.log("Probability other child is late: %s", otherChildDurations.pmf(range(41, 50)));
+
+    range(36, 49).forEach(function(weekNumber) {
+      console.log("Probability of baby being born in the next week if at week %s: %s",
+          weekNumber,
+          probabilityOfBeingBornThisWeek(firstChildDurations, weekNumber));
+    });
 
   }).catch(function(err) {
     console.error(String(err));
@@ -98,6 +120,14 @@ readDataFileLines(PREGNANCY_RESP_PATH)
     console.error(String(err));
   });
 */
+
+function probabilityOfBeingBornThisWeek(durations, weekNumber) {
+  var firstValueToKeep = durations.sortedIndexOf(weekNumber);
+  var unbornChildrenData = durations.sorted().slice(firstValueToKeep);
+  var unbornChildrenStats = new Stats();
+  unbornChildrenStats.push(unbornChildrenData);
+  return unbornChildrenStats.pmf(weekNumber);
+}
 
 function readDataFileLines(filePath) {
   var resolver = Promise.defer();
