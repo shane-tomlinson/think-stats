@@ -2,18 +2,18 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-const assert = require('assert');
+const assert = require('chai').assert;
 const Stats = require('../lib/stats');
 
-describe('Stats', function() {
+describe('Stats->', function() {
   var stats;
 
   beforeEach(function() {
     stats = new Stats();
   });
 
-  describe('functions', function() {
-    it('push should add items', function() {
+  describe('push', function() {
+    it('should add items', function() {
       stats.push(3);
       stats.push(5);
       stats.push(1);
@@ -55,7 +55,7 @@ describe('Stats', function() {
       assert.deepEqual(sorted, [0, 2, 3, 3, 3]);
     });
 
-    it('push can take an array', function() {
+    it('can take an array', function() {
       stats.push([3, -1, 2, 0]);
 
       var raw = stats.raw();
@@ -64,8 +64,10 @@ describe('Stats', function() {
       var sorted = stats.sorted();
       assert.deepEqual(sorted, [-1, 0, 2, 3]);
     });
+  });
 
-    it('bucket - no bucket count given', function() {
+  describe('bucket', function() {
+    it('no bucket count given - create separate buckets for each whole value', function() {
       stats.push([-1, 0, 1, 2, 3, 4, 6, 8, 9]);
 
       var buckets = stats.bucket();
@@ -76,7 +78,7 @@ describe('Stats', function() {
       assert.equal(buckets[9].max, 9);
     });
 
-    it('bucket - bucket items, return an array of buckets', function() {
+    it('bucket items, return an array of buckets', function() {
       stats.push([-1, 0, 1, 2, 3, 4, 6, 8, 9]);
 
       var buckets = stats.bucket(3);
@@ -91,8 +93,10 @@ describe('Stats', function() {
       /*assert.equal(secondBucket.max, 7);*/
       assert.equal(secondBucket.count, 2);
     });
+  });
 
-    it('hist - find the histogram of a set of values', function() {
+  describe('hist', function() {
+    it('find the histogram of a set of values', function() {
       stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
 
       var hist = stats.hist();
@@ -100,16 +104,20 @@ describe('Stats', function() {
       assert.equal(hist[1], 4);
       assert.equal(hist[-1], 1);
     });
+  });
 
-    it('frequency - count the number of times an item is in the list', function() {
+  describe('frequency', function() {
+    it('count the number of times an item is in the list', function() {
       stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
 
       assert.equal(stats.frequency(1), 4);
       assert.equal(stats.frequency(0), 1);
       assert.equal(stats.frequency(5), 0);
     });
+  });
 
-    it('pmf - normalize the histogram', function() {
+  describe('pmf', function() {
+    it('return the probability of a value', function() {
       stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
 
       assert.equal(stats.pmf(1), 4/12);
@@ -117,21 +125,23 @@ describe('Stats', function() {
       assert.equal(stats.pmf(5), 0);
     });
 
-    it('pmf of several values - sum the values of the pmf', function() {
+    it('several values - return the sum the pmf of the values', function() {
       stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
 
       // allow for floating point precision errors.
       assert.equal(stats.pmf(1, 0, 5).toFixed(4), (5/12).toFixed(4));
     });
 
-    it('pmf of an array of values - sum the values of the pmf', function() {
+    it('an array of values - sum the values of the pmf', function() {
       stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
 
       // allow for floating point precision errors.
       assert.equal(stats.pmf([1, 0, 5]).toFixed(4), (5/12).toFixed(4));
     });
+  });
 
-    it('sortedIndexOf - find the first index of an item', function() {
+  describe('sortedIndexOf', function() {
+    it('find the first index of an item', function() {
       stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
 
       assert.equal(stats.sortedIndexOf(1), 2);
@@ -140,39 +150,87 @@ describe('Stats', function() {
       assert.equal(stats.sortedIndexOf(-2), -1);
       assert.equal(stats.sortedIndexOf(10), -1);
     });
+  });
 
-    it('mean - calculate the mean', function() {
+  describe('amean', function() {
+    it('calculate the arithmetic mean', function() {
       stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
 
       assert.equal(stats.amean().toFixed(4), 2.9167);
     });
+  });
 
-    it('median - median value of an odd number of elements', function() {
+  describe('median', function() {
+    it('can handle an odd number of elements', function() {
       stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8]);
       assert.equal(stats.median(), 1);
     });
 
-    it('median - median value of an even number of elements', function() {
+    it('can handle an even number of elements', function() {
       stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
       assert.equal(stats.median(), 1.5);
     });
+  });
 
-    it('variance - caluclate the squared deviation from the mean', function() {
+  describe('variance', function() {
+    it('caluclate the squared deviation from the mean', function() {
       stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
       assert.equal(stats.variance().toFixed(4), 9.4097);
     });
+  });
 
-    it('sampleVariance - caluclate the sample variance', function() {
+  describe('sampleVariance', function() {
+    it('caluclate the sample variance', function() {
       stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
       assert.equal(stats.sampleVariance().toFixed(4), 10.2652);
     });
+  });
 
-    it('stddev - caluclate the standard deviation', function() {
+  describe('stddev', function() {
+    it('caluclate the standard deviation', function() {
       stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
       assert.equal(stats.stddev().toFixed(4), 3.0675);
     });
-
-
-
   });
+
+  describe('percentileRank', function() {
+    it('finds the percentile rank of a value', function() {
+      stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
+      assert.equal(Math.floor(stats.percentileRank(6)), 83);
+    });
+
+    it('finds the percentile rank of a value not in the list', function() {
+      stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
+      assert.equal(Math.floor(stats.percentileRank(5)), 75);
+    });
+
+    it('returns NaN if there are no values in list', function() {
+      assert.isTrue(isNaN(stats.percentileRank(5)));
+    });
+  });
+
+  describe('percentile', function() {
+    it('finds the nearest value less than the percentile', function() {
+      stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
+      assert.equal(stats.percentile(75), 6);
+    });
+  });
+
+  describe('cdf', function() {
+    it('calculates the cumulative probability of an item', function() {
+      stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
+      assert.equal(stats.cdf(6).toFixed(4), "0.8333");
+    });
+
+    it('check with book', function() {
+      stats.push([1, 2, 2, 3, 5])
+      assert.equal(stats.cdf(0), 0);
+      assert.equal(stats.cdf(1), 0.2);
+      assert.equal(stats.cdf(2), 0.6);
+      assert.equal(stats.cdf(3), 0.8);
+      assert.equal(stats.cdf(4), 0.8);
+      assert.equal(stats.cdf(5), 1);
+    });
+  });
+
 });
