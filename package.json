@@ -1,12 +1,13 @@
 {
   "name": "think-stats",
-  "version": "0.0.0",
-  "description": "",
-  "main": "lib/stats.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "version": "0.0.1",
+  "version": "0.0.12",
+  "engines": {
+    "node": ">= 0.6.2"
   },
-  "author": "",
+  "description": "A super basic stats package",
+  "main": "index",
+  "author": "Shane Tomlinson <shane@shanetomlinson.com> (https://shanetomlinson.com)",
   "license": "MPL 2.0",
   "dependencies": {
     "bluebird": "1.0.0"
