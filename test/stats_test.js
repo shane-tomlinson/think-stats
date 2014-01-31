@@ -222,35 +222,39 @@ describe('Stats->', function() {
       assert.equal(stats.cdf(6).toFixed(4), .8333);
     });
 
-    it('check with book', function() {
+    it('check with book', function () {
       stats.push([1, 2, 2, 3, 5])
-      /*assert.equal(stats.cdf(0), 0);*/
       assert.equal(stats.cdf(1), 0.2);
       assert.equal(stats.cdf(2), 0.6);
       assert.equal(stats.cdf(3), 0.8);
-      assert.equal(stats.cdf(4), 0.8);
       assert.equal(stats.cdf(5), 1);
     });
 
-    it('if no value specified, returns all cdfs', function() {
+    it('if value is not in the list, calculate it', function() {
+      stats.push([1, 2, 2, 3, 5])
+      assert.equal(stats.cdf(0), 0);
+      assert.equal(stats.cdf(4), 0.8);
+      assert.equal(stats.cdf(6), 1);
+    });
+
+    it('if no value specified, returns a "sparse array" of all cdfs', function() {
       stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
       var cdfs = stats.cdf();
       assert.equal(cdfs[-1], 1/12);
       assert.equal(cdfs[0], 2/12);
       assert.equal(cdfs[1], 6/12);
-      assert.ok(cdfs[0]);
       assert.equal(cdfs[6], 10/12);
+      assert.isUndefined(cdfs[5]);
     });
 
     it('check with book for array', function() {
       stats.push([1, 2, 2, 3, 5])
       var cdfs = stats.cdf();
-      /*assert.equal(cdfs[0], 0);*/
       assert.equal(cdfs[1], 0.2);
       assert.equal(cdfs[2], 0.6);
       assert.equal(cdfs[3], 0.8);
-      assert.equal(cdfs[4], 0.8);
       assert.equal(cdfs[5], 1);
+      assert.isUndefined(cdfs[4]);
     });
   });
 });
