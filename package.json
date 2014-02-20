@@ -1,8 +1,11 @@
 {
   "name": "think-stats",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "engines": {
     "node": ">= 0.6.2"
+  },
+  "scripts": {
+    "test": "mocha"
   },
   "description": "A super basic stats package",
   "main": "index",
