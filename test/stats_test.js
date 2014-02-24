@@ -189,6 +189,15 @@ describe('Stats->', function() {
       });
     });
 
+    describe('range', function() {
+      it('return min and max', function() {
+        stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
+        var range = stats.range();
+        assert.equal(range[0], -1);
+        assert.equal(range[1], 9);
+      });
+    });
+
     describe('stddev', function() {
       it('caluclate the standard deviation', function() {
         stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
