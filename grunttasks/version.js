@@ -14,6 +14,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('version', [
     'bump-only',
+    'docs',
     'changelog',
     'bump-commit'
   ]);

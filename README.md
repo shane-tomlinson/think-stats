@@ -20,7 +20,7 @@ A basic stats package inspired by reading [Think Stats by Allen B. Downey](http:
 * https://github.com/shane-tomlinson
 * @shane_tomlinson
 
-## Getting involved:
+## Get involved:
 
 MOAR STATS! More efficient calculation of storage and calculation of data very useful.
 

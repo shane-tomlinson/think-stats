@@ -18,15 +18,17 @@
   "author": "Shane Tomlinson <shane@shanetomlinson.com> (https://shanetomlinson.com)",
   "license": "MPL 2.0",
   "devDependencies": {
-    "chai": "~1.9.0",
-    "grunt": "~0.4.2",
+    "chai": "1.9.0",
+    "grunt": "0.4.2",
     "grunt-bump": "0.0.13",
+    "grunt-contrib-clean": "0.5.0",
     "grunt-contrib-jshint": "0.8.0",
     "grunt-conventional-changelog": "1.1.0",
-    "jshint": "~2.4.4",
+    "jsdox": "0.2.4",
+    "jshint": "2.4.4",
     "jshint-stylish": "0.1.5",
     "load-grunt-tasks": "0.4.0",
-    "mocha": "~1.17.0",
+    "mocha": "1.17.0",
     "time-grunt": "0.2.9"
   }
 }
