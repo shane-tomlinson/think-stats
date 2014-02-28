@@ -1,13 +1,19 @@
 {
   "name": "think-stats",
   "version": "0.0.17",
+  "description": "A basic stats package inspired by reading Think Stats by Allen B. Downey",
   "engines": {
     "node": ">= 0.10.0"
   },
   "scripts": {
     "test": "mocha test/stats_test.js"
   },
-  "description": "A super basic stats package inspired by reading Think Stats by Allen B. Downey",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shane-tomlinson/think-stats"
+  },
+  "homepage": "https://github.com/shane-tomlinson/think-stats",
+  "bugs": "https://github.com/shane-tomlinson/think-stats/issues",
   "main": "index",
   "author": "Shane Tomlinson <shane@shanetomlinson.com> (https://shanetomlinson.com)",
   "license": "MPL 2.0",
