@@ -109,6 +109,39 @@ describe('Stats->', function () {
         /*assert.equal(secondBucket.max, 7);*/
         assert.equal(secondBucket.count, 2);
       });
+
+      it('bucket works with a single bucket', function () {
+        stats.push([-1, 0, 1, 2, 3, 4, 6, 8, 9]);
+
+        var buckets = stats.bucket(1);
+
+        var firstBucket = buckets[0];
+        assert.equal(firstBucket.min, -1);
+        assert.equal(firstBucket.max, 9);
+        assert.equal(firstBucket.count, 9);
+      });
+
+      it('bucket works with a single item', function () {
+        stats.push([-1]);
+
+        var buckets = stats.bucket(1);
+
+        var firstBucket = buckets[0];
+        assert.equal(firstBucket.min, -1);
+        assert.equal(firstBucket.max, -1);
+        assert.equal(firstBucket.count, 1);
+      });
+
+      it('bucket works with multiple items of the same value', function () {
+        stats.push([-1, -1, -1]);
+
+        var buckets = stats.bucket(1);
+
+        var firstBucket = buckets[0];
+        assert.equal(firstBucket.min, -1);
+        assert.equal(firstBucket.max, -1);
+        assert.equal(firstBucket.count, 3);
+      });
     });
 
     describe('hist', function () {
