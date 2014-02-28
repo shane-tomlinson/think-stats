@@ -1,0 +1,28 @@
+{
+  "bitwise": true,
+  "curly": false,
+  "eqeqeq": true,
+  "esnext": true,
+  "globalstrict": false,
+  "immed": true,
+  "indent": 2,
+  "jquery": true,
+  "latedef": true,
+  "newcap": true,
+  "noarg": true,
+  "node": true,
+  "quotmark": "single",
+  "regexp": true,
+  "smarttabs": true,
+  "strict": true,
+  "trailing": true,
+  "undef": true,
+  "unused": true,
+  "globals": {
+    "require": true,
+    "console": true,
+    "define": true,
+    "router": true,
+    "translator": true
+  }
+}
