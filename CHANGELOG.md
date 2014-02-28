@@ -1,3 +1,12 @@
+<a name="0.0.19"></a>
+### 0.0.19 (2014-02-28)
+
+
+#### Features
+
+* **build:** Add automatic document generation on version increment. ([e20396fc](https://github.com/shane-tomlinson/think-stats/commit/e20396fc1d79f85a7247c7a742e0773acfa39d1b))
+
+
 <a name="0.0.18"></a>
 ### 0.0.18 (2014-02-28)
 

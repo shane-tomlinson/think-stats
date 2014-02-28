@@ -1,6 +1,6 @@
 {
   "name": "think-stats",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "A basic stats package inspired by reading Think Stats by Allen B. Downey",
   "engines": {
     "node": ">= 0.10.0"
