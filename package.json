@@ -1,19 +1,16 @@
 {
   "name": "think-stats",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "engines": {
     "node": ">= 0.10.0"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha test/stats_test.js"
   },
-  "description": "A super basic stats package",
+  "description": "A super basic stats package inspired by reading Think Stats by Allen B. Downey",
   "main": "index",
   "author": "Shane Tomlinson <shane@shanetomlinson.com> (https://shanetomlinson.com)",
   "license": "MPL 2.0",
-  "dependencies": {
-    "bluebird": "1.0.0"
-  },
   "devDependencies": {
     "mocha": "~1.17.0",
     "chai": "~1.8.1"
