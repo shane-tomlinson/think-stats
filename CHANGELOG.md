@@ -1,3 +1,12 @@
+<a name="0.0.20"></a>
+### 0.0.20 (2014-03-01)
+
+
+#### Bug Fixes
+
+* sorted() with no items returns empty array ([4ff26bf0](https://github.com/shane-tomlinson/think-stats/commit/4ff26bf099d48136ba1a38a585cd8afb4e336fd4))
+
+
 <a name="0.0.19"></a>
 ### 0.0.19 (2014-02-28)
 
