@@ -6,9 +6,10 @@ const Stats = require('../lib/stats');
 const util = require('util');
 
 const OBJECTS_TO_CREATE = 20;
-const VALUES_TO_PUSH = 200000; // 1M
+const VALUES_TO_PUSH = 200000;
 const SPREAD = 100000; // a larger spread uses more memory in array storage.
 const STORE_DATA = false;
+const TICKS = 10;
 
 // basic findings. If values to push is < spread,
 // it makes more sense to set store_data to true
@@ -41,9 +42,12 @@ describe('simple memory test', function() {
     it('test2', function() {
       this.timeout = 20 * 60 * 1000;
 
-      var iterations = 1000;
+      var startTime = 0;
+      var iterations = TICKS * 10;
       next();
       function next() {
+        if (! startTime) startTime = new Date();
+
         stats = [];
         for(var j = 0; j < OBJECTS_TO_CREATE; ++j) {
           stats[j] = new Stats({
@@ -57,6 +61,13 @@ describe('simple memory test', function() {
         }
         iterations--;
         if (!(iterations % 10)) {
+          for(var k = 0; k < OBJECTS_TO_CREATE; ++k) {
+            stats[k].sorted();
+          }
+          var endTime = new Date();
+          totalTime = endTime - startTime;
+          startTime = null;
+          console.error('tick time: %s', totalTime);
           console.error('tick remaining: %s', (iterations / 10) << 0);
         }
         if (iterations > 0) next();

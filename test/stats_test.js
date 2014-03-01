@@ -69,6 +69,13 @@ describe('Stats->', function () {
       });
     });
 
+    describe('sorted', function () {
+      it('returns an empty array if no values pushed', function () {
+        var sorted = stats.sorted();
+        assert.deepEqual(sorted, []);
+      });
+    });
+
     describe('unique', function () {
       it('counts unique items', function() {
         stats.push([3, -1, 2, 0]);
