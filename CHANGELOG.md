@@ -1,3 +1,14 @@
+<a name="0.0.21"></a>
+### 0.0.21 (2014-03-02)
+
+
+#### Features
+
+* **api:**
+  * Performance enhancement for `sorted` if all elements >= 0 ([a0458481](https://github.com/shane-tomlinson/think-stats/commit/a0458481639b291bb87ff73721d387568f8a1a43))
+  * Add converse cumulative distribution function. ([89f9bd7d](https://github.com/shane-tomlinson/think-stats/commit/89f9bd7dd66ab1c425ff2cda8589dcd6491acac0))
+
+
 <a name="0.0.20"></a>
 ### 0.0.20 (2014-03-01)
 

@@ -213,11 +213,21 @@ cdf()
 -----
 Calculate the Cumulative Distribution Function of a value.
 
-Object if no value given. Object contains the cdf of all values
-between (and including) the endpoints of the sorted list.
+Object if no value given. Object contains the cdf of all values between (and including) the endpoints of the sorted list.
 
 
 **Returns**
 
-Number if value is given
+Number if value is given.
+
+ccdf()
+------
+Calculate the Complementary Cumulative Distribution Function of a value.
+
+Object if no value given. Object contains the ccdf of all values between (and including) the endpoints of the sorted list.
+
+
+**Returns**
+
+Number if value is given.
 
