@@ -367,6 +367,19 @@ describe('Stats->', function () {
       });
     });
 
+    describe('sorted', function () {
+      it('fetches the sorted set of positive values, try perf enhancement', function () {
+        var unsorted = [];
+        for (var i = 0; i < 100000; ++i) {
+          unsorted.push((Math.random() * 1000000000) << 0);
+        }
+        stats.push(unsorted);
+
+        var sorted = stats.sorted();
+        assert.deepEqual(sorted, unsorted.sort(function(a, b) { return a - b; }));
+      });
+    });
+
     describe('hist', function () {
       it('find the histogram of a set of values', function () {
         stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
