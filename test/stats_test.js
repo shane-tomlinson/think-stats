@@ -322,6 +322,19 @@ describe('Stats->', function () {
         assert.isUndefined(cdfs[4]);
       });
     });
+
+    describe('ccdf', function () {
+      it('calculates the complementary cumulative probability of an item', function () {
+        stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
+        assert.equal(stats.ccdf(6).toFixed(4), (1 - .8333).toFixed(4));
+      });
+
+      it('calculates the complementary cumulative probability of an item', function () {
+        stats.push([-1, 0, 1, 2, 1, 1, 1, 3, 4, 6, 8, 9]);
+        var ccdfs = stats.ccdf();
+        assert.equal(ccdfs[6].toFixed(4), (1 - .8333).toFixed(4));
+      });
+    });
   });
 
   describe('store_data: false', function () {
